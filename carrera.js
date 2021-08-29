@@ -50,9 +50,5 @@ class Race{
 }
 
 let carrera = new Race();
-let jugador = new Race();
-
-
 console.log(carrera.race());
-console.log(jugador.playA());
-console.log(jugador.playB());
+
