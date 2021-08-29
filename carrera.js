@@ -6,17 +6,18 @@ class Race{
         this.scoreB= new Array();
     }
     race(){
-        while(this.playerA<100 || this.playerB<100){
+        while(this.playerA<100 && this.playerB<100){
             this.playA();
             this.playB();
         }
-
-        if(this.playerA>=100 && this.playerB>=100){
-            return `Es un empate ${this.scoreA} y ${this.scoreB}`;
-        } else if(this.playerA>=100){
-            return "El ganador es el jugador A";
+        console.log(this.scoreA);
+        console.log(this.scoreB);
+        if(this.playerA>100 && this.playerB>100){
+            return `Es un empate`;
+        } else if(this.playerA>this.playerB){
+            return `El ganador es el jugador A`;
         } else {
-            return "El ganador es el jugador B";
+            return `El ganador es el jugador B`;
         }
     }
 
