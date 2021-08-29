@@ -12,9 +12,9 @@ class Race{
         }
         console.log(this.scoreA);
         console.log(this.scoreB);
-        if(this.playerA>100 && this.playerB>100){
+        if(this.playerA>=100 && this.playerB>=100){
             return `Es un empate`;
-        } else if(this.playerA>this.playerB){
+        } else if(this.playerA>=100){
             return `El ganador es el jugador A`;
         } else {
             return `El ganador es el jugador B`;
