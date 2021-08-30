@@ -1,6 +1,5 @@
 class Ciclos{
     e(n){
-        //e=1+1/1!+1/2!.....
         let e = 1;
         for(let i = 1; i<n;i++){
             e += 1 / this.factorial(i);
@@ -16,11 +15,18 @@ class Ciclos{
         return total;
     }
 
-    s(){
-        //S= 4-(4/3)+(4/5)-(4/7)+(4/9)-(4/11)+(4/13)-(4/15)+(4/17)...
-
+    s(n){
+        let s = 0;
+        let secuencia = 1;
+        for(let i = 0; i < n; i++){
+            s += (4/secuencia) - (4/ (secuencia + 2));
+            secuencia += 4;
+            
+        }
+        return s;
     }
 }
 
-let esta = new Ciclos();
-console.log(esta.e(100));
+let ciclo = new Ciclos();
+console.log(ciclo.e(100));
+console.log(ciclo.s(3));
