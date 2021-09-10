@@ -10,12 +10,11 @@ class Jugador{
     }
 
     setPlace(n){
-        this.place += n;
+        this.place = n;
     }
 
     throw(){
         this.place += this.dado.roll();
-        return this.place;
     }
 }
 
@@ -32,12 +31,16 @@ class Tablero{
 
     play(){
 
-        while(this.playerA.getPlace()<100 && this.playerB.getPlace()<100){
+        while(this.playerA.getPlace()<=100 && this.playerB.getPlace()<=100){
             this.playerA.throw();
             this.playerB.throw();
-
-            this.playerA.setPlace(this.tablero[this.playerA.getPlace()]);
-            this.playerB.setPlace(this.tablero[this.playerB.getPlace()]);
+            if(this.playerA.getPlace()>= 100 || this.playerB.getPlace() >= 100){
+                break;
+            }
+            else {
+                this.playerA.setPlace(this.tablero[this.playerA.getPlace()]);
+                this.playerB.setPlace(this.tablero[this.playerB.getPlace()]);
+            }
         }
         console.log(this.playerA.getPlace());
         console.log(this.playerB.getPlace());
