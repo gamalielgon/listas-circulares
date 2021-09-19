@@ -11,27 +11,59 @@ class Storage{
         }
     }
 
+    verificar(){
+        if(this.storage.length==0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     findById(id){
         for(let i = 0; i<this.storage.length; i++){
             if(id==this.storage[i].getCode()){
                 return this.storage[i];
             }
-            else{
-                return null;
-            }
         }
+        return null;
     }
 
     list(){
-
+        let texto = "";
+        for(let i = 0; i<this.storage.length; i++){
+            texto += this.storage[i].infoHtml();
+        }
+        return texto;
     }
 
     listReverse(){
-
+        let texto = "";
+        for(let i = this.storage.length; i>0; i--){
+            texto += this.storage[i-1].infoHtml();
+        }
+        return texto;
     }
 
-    addHere(here){
+    addHere(item, here){
+        here--;
+        let placeholder = new Item();
+        if(this.storage.length-1 > here){
+            return true;
+        }
+        
+        /*for(let i = here; i<this.storage.length; i++){
+            placeholder = this.storage[i];
+            this.storage[i].push(item);
+            item=placeholder;
+        }
+        */
+    }
 
+    delete(id){
+        let placeholder = [];
+        for(asd;asd;asd){
+
+        }
     }
 }
 
@@ -66,8 +98,8 @@ class Item{
 
     infoHtml(){
         return `<div>
-        <h3>${this.code}</h3>
-        <p>${this.product} ${this.quantity} ${this.cost} ${this.value} </p>
+        <h3>ID:${this.code}</h3>
+        <p>Nombre:${this.product} Cantidad:${this.quantity} Costo:${this.cost} Valor:${this.value} </p>
         </div>`;
     }
 }
@@ -95,5 +127,50 @@ btnSearch.addEventListener(`click`, ()=>{
         detalles.innerHTML+=`<p>No se encontró</p>`;
     } else {
         detalles.innerHTML+= buscando.infoHtml();
+    }
+})
+
+let btnList=document.getElementById(`btnList`);
+btnList.addEventListener(`click`, ()=>{
+    let detalles = document.getElementById(`detalles`);
+    if(almacen.verificar()){
+        detalles.innerHTML+=`<p>No hay objetos</p>`
+    } else {
+        detalles.innerHTML+=`<p> ${almacen.list()} </p>`;
+    }
+})
+
+let btnListInv=document.getElementById(`btnListInv`);
+btnListInv.addEventListener(`click`, ()=>{
+    let detalles = document.getElementById(`detalles`);
+    if(almacen.verificar()){
+        detalles.innerHTML+=`<p>No hay objetos</p>`
+    } else {
+        detalles.innerHTML+=`<p> ${almacen.listReverse()} </p>`;
+    }
+})
+
+let btnAddHere=document.getElementById(`btnAddHere`);
+btnAddHere.addEventListener(`click`, ()=>{
+    let here = document.getElementById(`txtAddHere`).value;
+    let codigo = parseInt(document.getElementById(`txtCode`).value);
+    let nombre = document.getElementById(`txtProduct`).value;
+    let cantidad = parseInt(document.getElementById(`txtQuantity`).value);
+    let costo = parseInt(document.getElementById(`txtCost`).value);
+    let producto=new Item(codigo, nombre, cantidad, costo);
+    almacen.addHere(producto, here);
+    document.getElementById(`detalles`).innerHTML += `<p>Se agregó
+     el objeto ${producto.getCode()} correctamente</p>`;
+})
+
+let btnDelete=document.getElementById(`btnDelete`);
+btnDelete.addEventListener(`click`, ()=>{
+    let id = document.getElementById(`txtDelete`).value;
+    let buscando=almacen.findById(id);
+    let detalles= document.getElementById(`detalles`);
+    if(buscando==null){
+        detalles.innerHTML+=`<p>No se encontró</p>`;
+    } else {
+        detalles.innerHTML+= asd;
     }
 })
