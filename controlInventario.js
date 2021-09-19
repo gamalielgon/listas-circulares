@@ -133,10 +133,14 @@ btnAdd.addEventListener(`click`, ()=>{
     let nombre = document.getElementById(`txtProduct`).value;
     let cantidad = parseInt(document.getElementById(`txtQuantity`).value);
     let costo = parseInt(document.getElementById(`txtCost`).value);
+    if(codigo==NaN || nombre=="" || cantidad==NaN || costo==NaN){
+        document.getElementById(`detalles`).innerHTML+=`<p>Todos los campos son requeridos </p>`
+    } else { 
     let producto=new Item(codigo, nombre, cantidad, costo);
     almacen.addItem(producto);
     document.getElementById(`detalles`).innerHTML += `<p>Se agregó
      el objeto ${producto.getCode()} correctamente</p>`;
+    }
 })
 
 let btnSearch=document.getElementById(`btnSearch`);
@@ -178,10 +182,14 @@ btnAddHere.addEventListener(`click`, ()=>{
     let nombre = document.getElementById(`txtProduct`).value;
     let cantidad = parseInt(document.getElementById(`txtQuantity`).value);
     let costo = parseInt(document.getElementById(`txtCost`).value);
+    if(codigo==NaN || nombre=="" || cantidad==NaN || costo==NaN || here==NaN){
+        document.getElementById(`detalles`).innerHTML+=`<p>Todos los campos son requeridos </p>`
+    } else {
     let producto=new Item(codigo, nombre, cantidad, costo);
     almacen.addHere(producto, here);
     document.getElementById(`detalles`).innerHTML += `<p>Se agregó
      el objeto ${producto.getCode()} correctamente</p>`;
+    }
 })
 
 let btnDelete=document.getElementById(`btnDelete`);
