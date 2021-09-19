@@ -66,7 +66,7 @@ class Storage{
 
             placeholder.push(item);
 
-            for(let i = here + 1; i<this.storage.length; i++){
+            for(let i = here; i<this.storage.length; i++){
                 placeholder.push(this.storage[i]);
             }
             this.storage = placeholder;
