@@ -19,6 +19,15 @@ class Storage{
         }
     }
 
+    findPos(item){
+        for(let i = 0; i<this.storage.length; i++){
+            if(item.getCode()==this.storage[i].getCode()){
+                return i;
+            }
+        }
+        return null;
+    }
+
     findById(id){
         for(let i = 0; i<this.storage.length; i++){
             if(id==this.storage[i].getCode()){
@@ -46,24 +55,36 @@ class Storage{
 
     addHere(item, here){
         here--;
-        let placeholder = new Item();
+        console.log(here);
+        let placeholder = [];
         if(this.storage.length-1 > here){
-            return true;
+            this.storage.push(item);
+        } else {
+            for(let i = 0;i<here;i++){
+                placeholder.push(this.storage[i]);
+            }
+
+            placeholder.push(item);
+
+            for(let i = here + 1; i<this.storage.length; i++){
+                placeholder.push(this.storage[i]);
+            }
+            this.storage = placeholder;
         }
-        
-        /*for(let i = here; i<this.storage.length; i++){
-            placeholder = this.storage[i];
-            this.storage[i].push(item);
-            item=placeholder;
-        }
-        */
     }
 
-    delete(id){
+    delete(item){
         let placeholder = [];
-        for(asd;asd;asd){
-
+        let pos = this.findPos(item);
+        for(let i = 0;i<pos;i++){
+            placeholder.push(this.storage[i]);
         }
+
+        for(let i = pos + 1; i<this.storage.length; i++){
+            placeholder.push(this.storage[i]);
+        }
+        this.storage = placeholder;
+        return true;
     }
 }
 
@@ -152,7 +173,7 @@ btnListInv.addEventListener(`click`, ()=>{
 
 let btnAddHere=document.getElementById(`btnAddHere`);
 btnAddHere.addEventListener(`click`, ()=>{
-    let here = document.getElementById(`txtAddHere`).value;
+    let here = parseInt(document.getElementById(`txtAddHere`).value);
     let codigo = parseInt(document.getElementById(`txtCode`).value);
     let nombre = document.getElementById(`txtProduct`).value;
     let cantidad = parseInt(document.getElementById(`txtQuantity`).value);
@@ -165,12 +186,15 @@ btnAddHere.addEventListener(`click`, ()=>{
 
 let btnDelete=document.getElementById(`btnDelete`);
 btnDelete.addEventListener(`click`, ()=>{
-    let id = document.getElementById(`txtDelete`).value;
+    let id = document.getElementById(`txtCode`).value;
     let buscando=almacen.findById(id);
     let detalles= document.getElementById(`detalles`);
+    console.log(buscando);
+    console.log(id);
     if(buscando==null){
         detalles.innerHTML+=`<p>No se encontró</p>`;
     } else {
-        detalles.innerHTML+= asd;
+        detalles.innerHTML+= `<p>El producto ${buscando.infoHtml()} fue eliminado</p>`;
+        almacen.delete(buscando);
     }
 })
