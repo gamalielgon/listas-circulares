@@ -1,0 +1,32 @@
+<html>
+    <head>
+    <style>
+        body {
+        font-family: "Helvetica Neue", Helvetica, sans-serif;
+        }
+    </style>
+    
+    </head>
+    <body>
+    <h1>Control de inventario</h1>
+    <div id='app'>
+      <form>
+        <label for="txtStop">
+          Base:<input type='text' id='txtStop'>
+        </label>
+        <label for="txtMin">
+          Minutos:<input type='text' id='txtMin'>
+        </label>
+        <label for="txtQuantity">
+          Cantidad:<input type='text' id='txtQuantity'>
+        </label>
+        <button type='button' id='btnAdd'>Agregar</button>
+        <button type='button' id='btnDelete'>Borrar</button>
+        <button type='button' id='btnList'>Listar</button>
+        <button type='reset'>Cancelar</button>
+      </form>
+      <div id='details'></div>
+    </div>
+    </body>
+<script src="ListasCirculares.js" type="module"></script>
+</html>
