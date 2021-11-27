@@ -103,10 +103,11 @@ class Circuit{
             return `No existe la base ${base}`;
         } else{
             while(min >= 0){
-                card += find.inforCard(this._getHour(hour, minHour), min) + '\n' + '============================';          
+                let temp = this._getHour(hour, minHour)
+                card += find.inforCard(temp, min) + '\n' + '============================';          
                 minHour += find.next.min;
                 min -= find.next.min;
-                find = find._next;
+                find = find.next;
             }
         return card;
         }
@@ -143,19 +144,6 @@ class Circuit{
 }
 
 let circuito = new Circuit();
-let S1 = new Stop("Tiger", 20);
-circuito.addStop(S1);
-let S2 = new Stop("Elephan", 10);
-circuito.addStop(S2);
-let S3 = new Stop("Bull", 30);
-circuito.addStop(S3);
-let S4 = new Stop("Horse", 15);
-circuito.addStop(S4);
-/*console.log(circuito.deleteStop("Bull"));
-console.log(circuito.listStop())
-console.log(circuito.deleteStop("Tiger"));
-console.log(circuito.listStop())*/
-console.log(circuito.createCard("Tiger", 6, 150));
 
 let btnAdd = document.getElementById('btnAdd');
 btnAdd.addEventListener('click', ()=>{
