@@ -7,7 +7,10 @@ class Stop{
     }
 
     info(){
-        return `(${this.name}) -> ${this.min}`;
+        return `<div>
+        <h3>ID:${this.name}</h3>
+        <p>Minutos:${this.min}</p>
+        </div>`;
     }
 
     inforCard(hour, min){
@@ -35,6 +38,14 @@ class Circuit{
             stop.prev = last;
             last.next = stop;
             this.start.prev = stop;
+        }
+    }
+
+    verificar(){
+        if(this.start==null){
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -92,11 +103,9 @@ class Circuit{
             return `No existe la base ${base}`;
         } else{
             while(min >= 0){
-                console.log(find.inforCard(hour, min))
-                console.log(this.start.inforCard(this._getHour(hour, minHour), min))
                 card += find.inforCard(this._getHour(hour, minHour), min) + '\n' + '============================';          
                 minHour += find.next.min;
-                min-= find.next.min;
+                min -= find.next.min;
                 find = find._next;
             }
         return card;
@@ -104,21 +113,19 @@ class Circuit{
     }
 
     _find(name) {
-        if(this.start.name == name){
-            console.log("wtf")
-            return this.start;
-        }
-        let stop = this.start.next;
-        if(stop == null) {
+        let base = this.start;
+
+        if(!base) {
             return null;
-        } 
+        }
+
         do {
-            if(stop.name == name) {
-                return stop;
+            if(base.name === name) {
+                return base;
             } else {
-                stop = stop.next;
+                base = base.next;
             }
-        } while(stop !== this.start);
+        } while(base !== this.start);
         return null;  
     }
 
@@ -144,10 +151,61 @@ let S3 = new Stop("Bull", 30);
 circuito.addStop(S3);
 let S4 = new Stop("Horse", 15);
 circuito.addStop(S4);
-console.log(circuito.listStop());
 /*console.log(circuito.deleteStop("Bull"));
 console.log(circuito.listStop())
 console.log(circuito.deleteStop("Tiger"));
 console.log(circuito.listStop())*/
-
 console.log(circuito.createCard("Tiger", 6, 150));
+
+let btnAdd = document.getElementById('btnAdd');
+btnAdd.addEventListener('click', ()=>{
+    let name = document.getElementById('txtStop').value;
+    let min = parseInt(document.getElementById('txtMin').value);
+    if(name == "" || min == NaN){
+        document.getElementById(`details`).innerHTML+=`<p>Todos los campos son requeridos </p>`
+    } else {
+        let stop = new Stop(name, min);
+        circuito.addStop(stop);
+        document.getElementById(`details`).innerHTML += `<p>Se agregó
+     la parada ${stop.name} correctamente</p>`;
+    }
+})
+
+let btnList=document.getElementById(`btnList`);
+btnList.addEventListener(`click`, ()=>{
+    let details = document.getElementById(`details`);
+    if(circuito.verificar()){
+        details.innerHTML+=`<p>No hay objetos</p>`
+    } else {
+        details.innerHTML+=`<p> ${circuito.listStop()} </p>`;
+    }
+})
+
+let btnDelete=document.getElementById(`btnDelete`);
+btnDelete.addEventListener(`click`, ()=>{
+    let name = document.getElementById(`txtStop`).value;
+    let details= document.getElementById(`details`);
+    let searching = circuito.deleteStop(name);
+    if(name == ""){
+        details.innerHTML+=`<p>No incertaste una base</p>`;
+    } else{
+        if(searching==null){
+            details.innerHTML+=`<p>No se encontró</p>`;
+        } else {
+            details.innerHTML+= searching.info();
+        }
+    }
+})
+
+let btnCard=document.getElementById('btnCard');
+btnCard.addEventListener('click', ()=>{
+    let stop = document.getElementById('txtStop').value;
+    let hour = parseInt(document.getElementById('txtHours').value);
+    let min = parseInt(document.getElementById('txtMin').value);
+    if(stop == "" || min == NaN || hour == NaN){
+        document.getElementById(`details`).innerHTML+=`<p>Todos los campos son requeridos </p>`
+    } else {
+        let card = circuito.createCard(stop, hour, min);
+        document.getElementById(`details`).innerHTML+=`<p> ${card} </p>`;
+    }
+})
